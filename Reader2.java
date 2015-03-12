@@ -26,29 +26,15 @@ public class reader2 {
 			{
 				request rek=new request();
 				String line=file.nextLine();
-				rek.adress=line.substring(0, line.indexOf('-'));
-				rek.date=line.substring(line.indexOf('[')+1, line.indexOf(']'));
-				rek.request=line.substring(line.indexOf('"')+1, line.lastIndexOf('"'));
-				for (int j=line.lastIndexOf('"')+2; j<line.length(); j++)
-				{					
-					if (line.charAt(j)==' ')
-					{
-						for (int k=j+1; k<line.length(); k++)
-						{
-							rek.secondByte*=10; 
-							rek.secondByte+=Integer.valueOf(line.charAt(k))-48;
-						}
-						break;
-					}
-					rek.firstByte*=10; 
-					rek.firstByte+=Integer.valueOf(line.charAt(j))-48;
-				}
-				fw.write(rek.adress+"- - [");
+				rek.SetInitalString(line);							
+				
+				rek.SplitRequest();
+				fw.write(rek.GetAdress()+"- - [");				
 				fw.write(rek.date+"] \"");
-				fw.write(rek.request+"\" ");
-				fw.write(Integer.toString(rek.firstByte));
+				fw.write(rek.GetRequest()+"\" ");
+				fw.write(Integer.toString(rek.GetFirstByte()));
 				fw.write(" ");
-				fw.write(Integer.toString(rek.secondByte));
+				fw.write(Integer.toString(rek.GetSecondByte()));
 				fw.write("\r\n");
 				i++;
 				if (i==Integer.parseInt(args[0])) break;
