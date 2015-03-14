@@ -28,14 +28,8 @@ public class reader2 {
 				String line=file.nextLine();
 				rek.SetInitalString(line);							
 				
-				rek.SplitRequest();
-				fw.write(rek.GetAdress()+"- - [");				
-				fw.write(rek.date+"] \"");
-				fw.write(rek.GetRequest()+"\" ");
-				fw.write(Integer.toString(rek.GetFirstByte()));
-				fw.write(" ");
-				fw.write(Integer.toString(rek.GetSecondByte()));
-				fw.write("\r\n");
+				rek.SplitRequest(rek);
+				rek.OutRequest(args[3], fw);				
 				i++;
 				if (i==Integer.parseInt(args[0])) break;
 			}
