@@ -2,7 +2,7 @@ package reader;
 
 import java.util.ArrayList;
 
-public class LargestSeeker<T extends Request> implements ILargestSeeker<T> {
+public class LargestSeeker<T extends User> implements IReporter<T> {
 
 String fileName="report.txt";
 	
@@ -62,7 +62,7 @@ String fileName="report.txt";
 		return false;
 	}
 	
-	public User returnLargest(ArrayList<T> requests,Date startingDate, Date finalDate)
+	public T ReturnReport(ArrayList<Request> requests,Date startingDate, Date finalDate)
 	{
 		int largestSize=0;
 		String largestName="None";
@@ -73,10 +73,11 @@ String fileName="report.txt";
 				largestSize=requests.get(i).secondByte;
 				largestName=requests.get(i).GetAdress();
 			}
-		}
-		User user=new User();
+		}		
+		T user=(T) new User();
 		user.commonSize=largestSize;
 		user.name=largestName;
 		return user;
 	}
+
 }

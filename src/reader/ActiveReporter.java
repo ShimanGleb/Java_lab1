@@ -1,7 +1,7 @@
 package reader;
 import java.util.ArrayList;
 
-public class ActiveReporter<T extends Request> implements IActiveReporter<T> {
+public class ActiveReporter<T extends ArrayList<User>> implements IReporter<T> {
 
 	String fileName="report.txt";
 	public int convertMonth(String month)
@@ -60,7 +60,7 @@ public class ActiveReporter<T extends Request> implements IActiveReporter<T> {
 		return false;
 	}
 	
-	public ArrayList<User> returnActives(ArrayList<T> requests,Date startingDate, Date finalDate)
+	public T ReturnReport(ArrayList<Request> requests,Date startingDate, Date finalDate)
 	{
 		ArrayList<User> users = new ArrayList<User>();
 		User user=new User();
@@ -88,7 +88,7 @@ public class ActiveReporter<T extends Request> implements IActiveReporter<T> {
 			}
 		}
 		
-		ArrayList<User> mostActive = new ArrayList<User>();		
+		T mostActive =(T) new ArrayList<User>();		
 		for (int i=0; i<users.size(); i++)
 		{			
 				if (i<=4) mostActive.add(users.get(i));

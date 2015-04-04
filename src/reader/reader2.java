@@ -39,8 +39,8 @@ public class reader2 {
 		
 		if (Integer.valueOf(args[4])==1) 
 		{
-			ActiveReporter<Request> actives=new ActiveReporter<Request>();
-			ArrayList<User> mostActive=actives.returnActives(requests, startingDate, finalDate);
+			ActiveReporter<ArrayList<User>> actives=new ActiveReporter<ArrayList<User>>();
+			ArrayList<User> mostActive=actives.ReturnReport(requests, startingDate, finalDate);
 			FileWriter fw=new FileWriter(new File("report.txt"));
 			fw.write("Most active users: \r\n");
 			for (int i=0; i<mostActive.size(); i++) 
@@ -51,16 +51,16 @@ public class reader2 {
 		}
 		if (Integer.valueOf(args[4])==2) 
 		{	
-			CommonBytesReporter<Request> report=new CommonBytesReporter<Request>();
-			long commonBytes=report.returnBytes(requests, startingDate, finalDate);
+			CommonBytesReporter<ByteSum> report=new CommonBytesReporter<ByteSum>();
+			ByteSum commonBytes=report.ReturnReport(requests, startingDate, finalDate);
 			FileWriter fw=new FileWriter(new File("report.txt"));
 			fw.write(commonBytes + " bytes.");
 			fw.close();
 		}
 		if (Integer.valueOf(args[4])==3) 
 		{			
-			LargestSeeker<Request> report=new LargestSeeker<Request>();
-			User user=report.returnLargest(requests, startingDate, finalDate);
+			LargestSeeker<User> report=new LargestSeeker<User>();
+			User user=report.ReturnReport(requests, startingDate, finalDate);
 			FileWriter fw=new FileWriter(new File("report.txt"));
 			fw.write(user.name + " with " + user.commonSize + " bytes.");		
 			fw.close();	
