@@ -1,7 +1,7 @@
 package reader;
 import java.util.ArrayList;
 
-public class ActiveReporter<T extends ArrayList<User>> implements IReporter<T> {
+public class ActiveReporter<T extends ArrayList<User>,V extends Parameters> implements IReporter<T,V> {
 
 	String fileName="report.txt";
 	public int convertMonth(String month)
@@ -60,19 +60,19 @@ public class ActiveReporter<T extends ArrayList<User>> implements IReporter<T> {
 		return false;
 	}
 	
-	public T ReturnReport(ArrayList<Request> requests,Date startingDate, Date finalDate)
+	public T ReturnReport(V parameters)
 	{
 		ArrayList<User> users = new ArrayList<User>();
 		User user=new User();
-		user.name=requests.get(0).GetAdress();
+		user.name=parameters.requests.get(0).GetAdress();
 		users.add(user);
 		
-		for (int i=1; i<requests.size(); i++)
+		for (int i=1; i<parameters.requests.size(); i++)
 		{			
-			if (fitsDate(requests.get(i),startingDate,finalDate))
+			if (fitsDate(parameters.requests.get(i),parameters.startingDate,parameters.finalDate))
 			{
 				user=new User();
-				user.name=requests.get(i).GetAdress();
+				user.name=parameters.requests.get(i).GetAdress();
 				for (int j=0; j<users.size(); j++)
 				{
 					if (users.get(j).name.equals(user.name))

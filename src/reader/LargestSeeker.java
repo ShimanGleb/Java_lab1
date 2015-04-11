@@ -2,7 +2,7 @@ package reader;
 
 import java.util.ArrayList;
 
-public class LargestSeeker<T extends User> implements IReporter<T> {
+public class LargestSeeker<T extends User,V extends Parameters> implements IReporter<T,V> {
 
 String fileName="report.txt";
 	
@@ -62,16 +62,16 @@ String fileName="report.txt";
 		return false;
 	}
 	
-	public T ReturnReport(ArrayList<Request> requests,Date startingDate, Date finalDate)
+	public T ReturnReport(V parameters)
 	{
 		int largestSize=0;
 		String largestName="None";
-		for (int i=0; i<requests.size(); i++)
+		for (int i=0; i<parameters.requests.size(); i++)
 		{			
-			if (requests.get(i).secondByte>largestSize && fitsDate(requests.get(i),startingDate,finalDate))
+			if (parameters.requests.get(i).secondByte>largestSize && fitsDate(parameters.requests.get(i),parameters.startingDate,parameters.finalDate))
 			{
-				largestSize=requests.get(i).secondByte;
-				largestName=requests.get(i).GetAdress();
+				largestSize=parameters.requests.get(i).secondByte;
+				largestName=parameters.requests.get(i).GetAdress();
 			}
 		}		
 		T user=(T) new User();

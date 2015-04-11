@@ -31,16 +31,20 @@ public class reader2 {
 	{			
 		ArrayList<Request> requests = new ArrayList<Request>();
 		Processor processor=new Processor();
-		requests=processor.processStrings(args[0],args[1],args[2],args[3]);		
+		requests=processor.processStrings(args[0],args[1],args[2],args[3]);				
 		Date startingDate=new Date();
 		startingDate=assignDate(args[5],args[6]);
 		Date finalDate=new Date();
 		finalDate=assignDate(args[7],args[8]);
+		Parameters parameters=new Parameters();
+		parameters.requests=requests;
+		parameters.startingDate=startingDate;
+		parameters.finalDate=finalDate;
 		
 		if (Integer.valueOf(args[4])==1) 
 		{
-			ActiveReporter<ArrayList<User>> actives=new ActiveReporter<ArrayList<User>>();
-			ArrayList<User> mostActive=actives.ReturnReport(requests, startingDate, finalDate);
+			ActiveReporter<ArrayList<User>,Parameters> actives=new ActiveReporter<ArrayList<User>,Parameters>();
+			ArrayList<User> mostActive=actives.ReturnReport(parameters);
 			FileWriter fw=new FileWriter(new File("report.txt"));
 			fw.write("Most active users: \r\n");
 			for (int i=0; i<mostActive.size(); i++) 
@@ -51,16 +55,16 @@ public class reader2 {
 		}
 		if (Integer.valueOf(args[4])==2) 
 		{	
-			CommonBytesReporter<ByteSum> report=new CommonBytesReporter<ByteSum>();
-			ByteSum commonBytes=report.ReturnReport(requests, startingDate, finalDate);
+			CommonBytesReporter<ByteSum,Parameters> report=new CommonBytesReporter<ByteSum,Parameters>();
+			ByteSum commonBytes=report.ReturnReport(parameters);
 			FileWriter fw=new FileWriter(new File("report.txt"));
 			fw.write(commonBytes + " bytes.");
 			fw.close();
 		}
 		if (Integer.valueOf(args[4])==3) 
 		{			
-			LargestSeeker<User> report=new LargestSeeker<User>();
-			User user=report.ReturnReport(requests, startingDate, finalDate);
+			LargestSeeker<User,Parameters> report=new LargestSeeker<User,Parameters>();
+			User user=report.ReturnReport(parameters);
 			FileWriter fw=new FileWriter(new File("report.txt"));
 			fw.write(user.name + " with " + user.commonSize + " bytes.");		
 			fw.close();	

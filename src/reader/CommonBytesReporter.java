@@ -2,7 +2,7 @@ package reader;
 
 import java.util.ArrayList;
 
-public class CommonBytesReporter<T extends ByteSum> implements IReporter<T> {
+public class CommonBytesReporter<T extends ByteSum,V extends Parameters> implements IReporter<T,V> {
 
 String fileName="report.txt";
 	
@@ -62,14 +62,14 @@ String fileName="report.txt";
 		return false;
 	}
 	
-	public T ReturnReport(ArrayList<Request> requests,Date startingDate, Date finalDate)
+	public T ReturnReport(V parameter)
 	{
 		int commonSize=0;
-		for (int i=0; i<requests.size(); i++)
+		for (int i=0; i<parameter.requests.size(); i++)
 		{			
-			if (fitsDate(requests.get(i),startingDate,finalDate))
+			if (fitsDate(parameter.requests.get(i),parameter.startingDate,parameter.finalDate))
 			{
-				commonSize=requests.get(i).secondByte;				
+				commonSize=parameter.requests.get(i).secondByte;				
 			}
 		}
 		T result=(T) new ByteSum();
